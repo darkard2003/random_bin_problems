@@ -1,5 +1,5 @@
 import os
-from generator import *
+from problems import *
 
 
 class ProblemMaker:

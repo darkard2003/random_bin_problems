@@ -1,5 +1,5 @@
-from problem.generator import *
-from problem.generator_class import ProblemMaker
+from problem.problems import *
+from problem.problem_maker import ProblemMaker
 
 def main():
     maker = ProblemMaker()
