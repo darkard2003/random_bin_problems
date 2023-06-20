@@ -1,23 +1,24 @@
-from generator import *
 from generator_class import ProblemMaker
+from generator import *
 
-def main():
+
+def generator_test():
     maker = ProblemMaker()
     maker.add_problems(
         [
             BinToDesProblem(),
             DesToBinProblem(),
-            BinSumProblem(),
             BinSubProblem(),
+            BinSumProblem(),
             BinMulProblem(),
             BinDivProblem(),
             OnesComplementProblem(),
             TwosComplementProblem(),
-            FloatToBinProblem(),
+            FloatToBinProblem(count=10),
         ]
     )
     maker.generate()
 
 
 if __name__ == "__main__":
-    main()
+    generator_test()

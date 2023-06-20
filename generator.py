@@ -12,8 +12,13 @@ def des_to_bin_float(num: float, presision=10):
     if num >= 1:
         w = int(num)
         des += des_to_bin(w)
-        des += "."
         f = num - w
+        if f == 0:
+            return des
+        des += "."
+
+    else:
+        des += "0."
 
     for i in range(presision):
         if f == 0:
@@ -29,136 +34,6 @@ def des_to_bin_float(num: float, presision=10):
 
 
 # des to binary problem
-def des_to_bin_problem(
-    problem,
-    solution,
-    count=10,
-    range_end=500,
-    range_start=10,
-):
-    problem.write("\nConvert these desimal to binary\n")
-    solution.write("\nConvert these desimal to binary\n")
-    for i in range(1, count + 1):
-        rnd = random.randint(range_start, range_end)
-        problem.write(f"{i}. {rnd}\n")
-        solution.write(f"{i}. {rnd} -> {des_to_bin(rnd)}\n")
-
-
-# convert binary to desimal
-def bin_to_des_problem(
-    problem,
-    solution,
-    count=10,
-    range_end=500,
-    range_start=10,
-):
-    problem.write("\nConvert these binary to desimal\n")
-    solution.write("\nConvert these binary to desimal\n")
-    for i in range(1, count + 1):
-        rnd = random.randint(range_start, range_end)
-        problem.write(f"{i}. {des_to_bin(rnd)}\n")
-        solution.write(f"{i}. {des_to_bin(rnd)} -> {rnd}\n")
-
-
-# binary sum problem
-def bin_sum_problem(
-    problem,
-    solution,
-    count=10,
-    range_end=500,
-    range_start=10,
-):
-    problem.write("\nAdd these binary numbers\n")
-    solution.write("\nAdd these binary numbers\n")
-
-    for i in range(1, count + 1):
-        rnd = random.randint(range_start, range_end)
-        rnd2 = random.randint(range_start, range_end)
-        problem.write(f"{i}. {des_to_bin(rnd)} + {des_to_bin(rnd2)}\n")
-
-        sum = rnd + rnd2
-
-        solution.write(
-            f"{i}. {des_to_bin(rnd)} + {des_to_bin(rnd2)} = \
-            {des_to_bin(sum)}\n"
-        )
-
-
-# binary sub problem
-def bin_sub_problem(
-    problem,
-    solution,
-    count=10,
-    range_end=500,
-    range_start=10,
-):
-    problem.write("\nSubtract these binary numbers\n")
-    solution.write("\nSubtract these binary numbers\n")
-
-    for i in range(1, count + 1):
-        rnd = random.randint(range_start, range_end)
-        rnd2 = random.randint(range_start, range_end)
-
-        while rnd == rnd2:
-            rnd2 = random.randint(range_start, range_end)
-
-        if rnd < rnd2:
-            rnd, rnd2 = rnd2, rnd
-
-        problem.write(f"{i}. {des_to_bin(rnd)} - {des_to_bin(rnd2)}\n")
-
-        sub = rnd - rnd2
-
-        solution.write(
-            f"{i}. {des_to_bin(rnd)} - {des_to_bin(rnd2)} = \
-            {des_to_bin(sub)}\n"
-        )
-
-
-# binary mul problem
-def bin_mul_problem(
-    problem,
-    solution,
-    count=10,
-    range_end=500,
-    range_start=10,
-):
-    problem.write("\nMultiply these binary numbers\n")
-    solution.write("\nMultiply these binary numbers\n")
-    for i in range(1, count + 1):
-        rnd = random.randint(range_start, range_end)
-        rnd2 = random.randint(5, 15)
-        problem.write(f"{i}. {des_to_bin(rnd)} * {des_to_bin(rnd2)}\n")
-        mul = rnd * rnd2
-        solution.write(
-            f"{i}. {des_to_bin(rnd)} * {des_to_bin(rnd2)} = \
-            {des_to_bin(mul)}\n"
-        )
-
-
-def bin_div_problem(
-    problem,
-    solution,
-    count=10,
-    range_end=500,
-    range_start=20,
-):
-    problem.write("\nDivide these binary numbers\n")
-    solution.write("\nDivide these binary numbers\n")
-    for i in range(count + 1):
-        rnd1 = random.randint(range_start, range_end)
-        rnd2 = random.randint(5, 15)
-
-        while rnd1 % rnd2 != 0:
-            rnd1 = random.randint(range_start, range_end)
-
-        problem.write(f"{i}. {des_to_bin(rnd1)} / {des_to_bin(rnd2)}\n")
-        div = rnd1 / rnd2
-        solution.write(
-            f"{i}. {des_to_bin(rnd1)} / {des_to_bin(rnd2)} = {div}\n",
-        )
-
-
 def twos_complement(num):
     binary = des_to_bin(num)
     length = len(binary)
@@ -173,84 +48,187 @@ def ones_complement(num):
     return des_to_bin(comp)
 
 
-# ones complement problem
-def ones_complement_problem(
-    problem,
-    solution,
-    count=10,
-    range_end=500,
-    range_start=10,
-):
-    problem.write("\nFind the 1's complement of these binary numbers\n")
-    solution.write("\nFind the 1's complement of these binary numbers\n")
-    for i in range(1, count + 1):
-        rnd = random.randint(range_start, range_end)
-        problem.write(f"{i}. {des_to_bin(rnd)}\n")
-        solution.write(f"{i}. {des_to_bin(rnd)} = {ones_complement(rnd)}\n")
+class Problem:
+    def __init__(self, count=10, range_end=500, range_start=20):
+        self.count = count
+        self.range_end = range_end
+        self.range_start = range_start
+
+    def generate(self, problem, solution):
+        pass
 
 
-# 2's complement problem
-def twos_complement_problem(
-    problem,
-    solution,
-    count=10,
-    range_end=500,
-    range_start=10,
-):
-    problem.write("\nFind the 2's complement of these binary numbers\n")
-    solution.write("\nFind the 2's complement of these binary numbers\n")
-    for i in range(1, count + 1):
-        rnd = random.randint(range_start, range_end)
-        problem.write(f"{i}. {des_to_bin(rnd)}\n")
-        solution.write(f"{i}. {des_to_bin(rnd)} = {twos_complement(rnd)}\n")
+class DesToBinProblem(Problem):
+    def generate(self, problem, solution):
+        problem.write("\nConvert these desimal to binary\n")
+        solution.write("\nConvert these desimal to binary\n")
+        for i in range(1, self.count + 1):
+            rnd = random.randint(self.range_start, self.range_end)
+            problem.write(f"{i}. {rnd}\n")
+            solution.write(f"{i}. {rnd} -> {des_to_bin(rnd)}\n")
 
 
-# sub using 2's complement
-def twos_complement_sub(
-    problem,
-    solution,
-    count=10,
-    range_end=500,
-    range_start=10,
-):
-    problem.write("\nSubtract these binary numbers using 2's complement\n")
-    solution.write("\nSubtract these binary numbers using 2's complement\n")
-    for i in range(1, count + 1):
-        rnd1 = random.randint(range_start, range_end)
-        rnd2 = random.randint(range_start, range_end)
-
-        while rnd1 == rnd2:
-            rnd2 = random.randint(range_start, range_end)
-
-        if rnd1 < rnd2:
-            rnd1, rnd2 = rnd2, rnd1
-
-        problem.write(f"{i}. {des_to_bin(rnd1)} - {des_to_bin(rnd2)}\n")
-
-        sub = rnd1 - rnd2
-
-        solution.write(
-            f"{i}. {des_to_bin(rnd1)} - {des_to_bin(rnd2)} =\
-            {des_to_bin(sub)}\n"
-        )
+class BinToDesProblem(Problem):
+    def generate(self, problem, solution):
+        problem.write("\nConvert these binary to desimal\n")
+        solution.write("\nConvert these binary to desimal\n")
+        for i in range(1, self.count + 1):
+            rnd = random.randint(self.range_start, self.range_end)
+            problem.write(f"{i}. {des_to_bin(rnd)}\n")
+            solution.write(f"{i}. {des_to_bin(rnd)} -> {rnd}\n")
 
 
-# floating point decimal to binary
-def float_to_bin_prob(
-    problem,
-    solution,
-    count=10,
-    range_end=10,
-    range_start=1,
-):
-    problem.write("\nConvert these floating point decimal numbers to binary\n")
-    solution.write("\nConvert these floating point decimal numbers to binary\n")
-    for i in range(1, count + 1):
-        rnd = round(random.uniform(range_start, range_end), 2)
-        problem.write(f"{i}. {rnd}\n")
-        solution.write(f"{i}. {rnd} = {des_to_bin_float(rnd)}\n")
+class BinSumProblem(Problem):
+    def generate(self, problem, solution):
+        problem.write("\nAdd these binary numbers\n")
+        solution.write("\nAdd these binary numbers\n")
+
+        for i in range(1, self.count + 1):
+            rnd = random.randint(self.range_start, self.range_end)
+            rnd2 = random.randint(self.range_start, self.range_end)
+            problem.write(f"{i}. {des_to_bin(rnd)} + {des_to_bin(rnd2)}\n")
+
+            sum = rnd + rnd2
+
+            solution.write(
+                f"{i}. {des_to_bin(rnd)} + {des_to_bin(rnd2)} = \
+                {des_to_bin(sum)}\n"
+            )
 
 
-if __name__ == "__main__":
-    des = input("Enter a hexadecimal number: ")
-    print(des_to_bin(des))
+class BinSubProblem(Problem):
+    def generate(self, problem, solution):
+        problem.write("\nSubtract these binary numbers\n")
+        solution.write("\nSubtract these binary numbers\n")
+
+        for i in range(1, self.count + 1):
+            rnd = random.randint(self.range_start, self.range_end)
+            rnd2 = random.randint(self.range_start, self.range_end)
+
+            while rnd == rnd2:
+                rnd2 = random.randint(self.range_start, self.range_end)
+
+            if rnd < rnd2:
+                rnd, rnd2 = rnd2, rnd
+
+            problem.write(f"{i}. {des_to_bin(rnd)} - {des_to_bin(rnd2)}\n")
+
+            sub = rnd - rnd2
+
+            solution.write(
+                f"{i}. {des_to_bin(rnd)} - {des_to_bin(rnd2)} = \
+                {des_to_bin(sub)}\n"
+            )
+
+
+class BinMulProblem(Problem):
+    def generate(self, problem, solution):
+        problem.write("\nMultiply these binary numbers\n")
+        solution.write("\nMultiply these binary numbers\n")
+
+        for i in range(1, self.count + 1):
+            rnd = random.randint(self.range_start, self.range_end)
+            rnd2 = random.randint(4, 8)
+            problem.write(f"{i}. {des_to_bin(rnd)} * {des_to_bin(rnd2)}\n")
+
+            mul = rnd * rnd2
+
+            solution.write(
+                f"{i}. {des_to_bin(rnd)} * {des_to_bin(rnd2)} = \
+                {des_to_bin(mul)}\n"
+            )
+
+
+class BinDivProblem(Problem):
+    def generate(self, problem, solution):
+        problem.write("\nDivide these binary numbers\n")
+        solution.write("\nDivide these binary numbers\n")
+
+        for i in range(1, self.count + 1):
+            rnd = random.randint(self.range_start, self.range_end)
+            rnd2 = random.randint(5, 15)
+
+            while rnd % rnd2 != 0:
+                for i in range(10):
+                    rnd2 = random.randint(5, 15)
+                    if rnd % rnd2 == 0:
+                        break
+                if rnd % rnd2 == 0:
+                    break
+                rnd = random.randint(self.range_start, self.range_end)
+
+            problem.write(f"{i}. {des_to_bin(rnd)} / {des_to_bin(rnd2)}\n")
+
+            div = rnd / rnd2
+
+            solution.write(
+                f"{i}. {des_to_bin(rnd)} / {des_to_bin(rnd2)} = \
+                {des_to_bin_float(div)}\n"
+            )
+
+
+class OnesComplementProblem(Problem):
+    def generate(self, problem, solution):
+        problem.write("\nFind the ones complement of these binary numbers\n")
+        solution.write("\nFind the ones complement of these binary numbers\n")
+
+        for i in range(1, self.count + 1):
+            rnd = random.randint(self.range_start, self.range_end)
+            problem.write(f"{i}. {des_to_bin(rnd)}\n")
+
+            ones = ones_complement(rnd)
+
+            solution.write(f"{i}. {des_to_bin(rnd)} -> {ones}\n")
+
+
+class TwosComplementProblem(Problem):
+    def generate(self, problem, solution):
+        problem.write("\nFind the twos complement of these binary numbers\n")
+        solution.write("\nFind the twos complement of these binary numbers\n")
+
+        for i in range(1, self.count + 1):
+            rnd = random.randint(self.range_start, self.range_end)
+            problem.write(f"{i}. {des_to_bin(rnd)}\n")
+
+            twos = twos_complement(rnd)
+
+            solution.write(f"{i}. {des_to_bin(rnd)} -> {twos}\n")
+
+
+class TowsComplementSubProblem(Problem):
+    def generate(self, problem, solution):
+        problem.write("\nSubtract these binary numbers using twos complement\n")
+        solution.write("\nSubtract these binary numbers using twos complement\n")
+
+        for i in range(1, self.count + 1):
+            rnd = random.randint(self.range_start, self.range_end)
+            rnd2 = random.randint(self.range_start, self.range_end)
+
+            while rnd == rnd2:
+                rnd2 = random.randint(self.range_start, self.range_end)
+
+            if rnd < rnd2:
+                rnd, rnd2 = rnd2, rnd
+
+            problem.write(f"{i}. {des_to_bin(rnd)} - {des_to_bin(rnd2)}\n")
+
+            sub = rnd - rnd2
+
+            solution.write(
+                f"{i}. {des_to_bin(rnd)} - {des_to_bin(rnd2)} = \
+                {des_to_bin(sub)}\n"
+            )
+
+
+class FloatToBinProblem(Problem):
+    def generate(self, problem, solution):
+        problem.write("\nConvert these floating point numbers to binary\n")
+        solution.write("\nConvert these floating point numbers to binary\n")
+
+        for i in range(1, self.count + 1):
+            rnd = random.uniform(self.range_start, self.range_end)
+            problem.write(f"{i}. {rnd}\n")
+
+            bin = des_to_bin_float(rnd)
+
+            solution.write(f"{i}. {rnd} -> {bin}\n")
